@@ -135,7 +135,7 @@ namespace Streetcred.Sdk.Runtime
 
             //TODO we need roll back, i.e if we fail to send the A2A message the credential record should revert to Offer phase
             //so the user can resend
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = requestMessage.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)
@@ -256,7 +256,7 @@ namespace Streetcred.Sdk.Runtime
             var connection = await ConnectionService.GetAsync(wallet, config.ConnectionId);
             var offer = await CreateOfferAsync(wallet, config);
 
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = offer.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)
@@ -372,7 +372,7 @@ namespace Streetcred.Sdk.Runtime
                 connection.TheirVk);
             credential.Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Credential);
 
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = credential.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)

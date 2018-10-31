@@ -57,7 +57,7 @@ namespace Streetcred.Sdk.Runtime
             var connection = await ConnectionService.GetAsync(wallet, connectionId);
             var request = await CreateProofRequestAsync(wallet, connectionId, proofRequest);
 
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = request.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)
@@ -72,7 +72,7 @@ namespace Streetcred.Sdk.Runtime
             var connection = await ConnectionService.GetAsync(wallet, connectionId);
             var request = await CreateProofRequestAsync(wallet, connectionId, proofRequestJson);
 
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = request.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)
@@ -244,7 +244,7 @@ namespace Streetcred.Sdk.Runtime
 
             var proof = await CreateProofAsync(wallet, pool, proofRequestId, requestedCredentials);
 
-            await RouterService.ForwardAsync(new ForwardEnvelopeMessage
+            await RouterService.SendMessageAsync(new ForwardEnvelopeMessage
             {
                 Content = proof.ToJson(),
                 Type = MessageUtils.FormatDidMessageType(connection.TheirDid, MessageTypes.Forward)

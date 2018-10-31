@@ -9,6 +9,7 @@ using Streetcred.Sdk.Model;
 using Streetcred.Sdk.Model.Connections;
 using Streetcred.Sdk.Model.Credentials;
 using Streetcred.Sdk.Model.Proofs;
+using Streetcred.Sdk.Model.Routes;
 
 namespace Streetcred.Sdk.Extensions
 {
@@ -21,6 +22,7 @@ namespace Streetcred.Sdk.Extensions
         private readonly IConnectionService _connectionService;
         private readonly ICredentialService _credentialService;
         private readonly IProvisioningService _provisioningService;
+        private readonly IRouterService _routerService;
         private readonly PoolOptions _poolOptions;
         private readonly WalletOptions _walletOptions;
 
@@ -31,6 +33,7 @@ namespace Streetcred.Sdk.Extensions
             IConnectionService connectionService,
             ICredentialService credentialService,
             IProvisioningService provisioningService,
+            IRouterService routerService,
             IOptions<WalletOptions> walletOptions,
             IOptions<PoolOptions> poolOptions)
         {
@@ -41,6 +44,7 @@ namespace Streetcred.Sdk.Extensions
             _connectionService = connectionService;
             _credentialService = credentialService;
             _provisioningService = provisioningService;
+            _routerService = routerService;
             _poolOptions = poolOptions.Value;
             _walletOptions = walletOptions.Value;
         }
@@ -86,6 +90,9 @@ namespace Streetcred.Sdk.Extensions
                         await _credentialService.ProcessCredentialAsync(pool, wallet, credential);
                         break;
                     case Proof _:
+                        break;
+                    case Route route:
+                        await _routerService.ProcessRoute(wallet, route);
                         break;
                 }
 

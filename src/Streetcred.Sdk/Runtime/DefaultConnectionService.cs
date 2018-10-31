@@ -146,7 +146,7 @@ namespace Streetcred.Sdk.Runtime
                 Content = request.ToJson()
             };
 
-            await RouterService.ForwardAsync(forwardMessage, invitation.Endpoint);
+            await RouterService.SendMessageAsync(forwardMessage, invitation.Endpoint);
 
             return connection.GetId();
         }
@@ -224,7 +224,7 @@ namespace Streetcred.Sdk.Runtime
                 Content = responseMessage.ToJson()
             };
 
-            await RouterService.ForwardAsync(forwardMessage, connection.Endpoint);
+            await RouterService.SendMessageAsync(forwardMessage, connection.Endpoint);
         }
 
         /// <inheritdoc />
