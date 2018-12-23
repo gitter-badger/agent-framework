@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AgentFramework.Core.Contracts;
 using AgentFramework.Core.Exceptions;
+using AgentFramework.Core.Models;
 using AgentFramework.Core.Models.Records;
 using AgentFramework.Core.Models.Wallets;
 using AgentFramework.Core.Utils;
@@ -61,18 +62,18 @@ namespace AgentFramework.Core.Runtime
             {
                 AgentSeed = provisioningConfiguration.AgentSeed,
                 MasterSecretId = masterSecretId,
-                Endpoint =
-                {
-                    Uri = provisioningConfiguration.EndpointUri.ToString(),
-                    Did = agent.Did,
-                    Verkey = agent.VerKey
-                },
                 Owner =
                 {
                     Name = provisioningConfiguration.OwnerName,
                     ImageUrl = provisioningConfiguration.OwnerImageUrl
                 }
             };
+
+            record.Services.Add(new AgencyService
+            {
+                ServiceEndpoint = provisioningConfiguration.EndpointUri.ToString(),
+                Verkey = agent.VerKey
+            });
 
             if (provisioningConfiguration.CreateIssuer)
             {

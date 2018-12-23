@@ -1,4 +1,8 @@
-﻿namespace AgentFramework.Core.Models.Records
+﻿using System.Collections;
+using System.Collections.Generic;
+using AgentFramework.Core.Models.Did;
+
+namespace AgentFramework.Core.Models.Records
 {
     /// <summary>
     /// Represents a provisioning record in the agency wallet
@@ -11,7 +15,7 @@
         /// </summary>
         public ProvisioningRecord()
         {
-            Endpoint = new AgentEndpoint();
+            Services = new List<IDidService>();
             Owner = new AgentOwner();
         }
 
@@ -33,10 +37,10 @@
         public override string TypeName => "AF.ProvisioningRecord";
 
         /// <summary>
-        /// Gets or sets the endpoint information for the provisioned agent.
+        /// Gets or sets the services for the provisioned agent.
         /// </summary>
-        /// <returns>The endpoint informtation for the provisioned agent</returns>
-        public AgentEndpoint Endpoint
+        /// <returns>The service information for the provisioned agent</returns>
+        public IList<IDidService> Services
         {
             get;
             set;
